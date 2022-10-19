@@ -45,7 +45,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         validate: {
           notEmpty: { args: true, msg: 'Gender is required' },
-          isIn: { args: [['male', 'female']], msg: 'Must be male or female' },
+          isIn: {
+            args: [['male', 'female']],
+            msg: 'Gender must be male or female',
+          },
         },
       },
       role: {
