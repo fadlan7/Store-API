@@ -1,5 +1,5 @@
 const { User } = require('../models');
-
+const currencyFormat = require('../helpers/currencyFormat');
 class UserController {
   static async register(req, res) {
     const { full_name, password, gender, email } = req.body;
@@ -13,7 +13,19 @@ class UserController {
         role: roleValue,
       });
 
-      res.status(201).json({ user: userData });
+      const userId = +userData.id;
+      const userBalance = currencyFormat(userData.balance);
+      //   console.log(userBalance);
+      const displayData = {
+        id: +userData.id,
+        full_name,
+        email,
+        gender,
+        balance: userBalance,
+        createdAt: userData.createdAt,
+      };
+
+      res.status(201).json({ user: displayData });
     } catch (error) {
       if (
         error.name === 'SequelizeValidationError' ||
