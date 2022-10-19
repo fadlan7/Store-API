@@ -12,6 +12,9 @@ module.exports = {
           password: '123456',
           gender: 'male',
           role: 1,
+          balance: 0,
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
       ],
       {}
