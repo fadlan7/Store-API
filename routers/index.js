@@ -10,6 +10,6 @@ router.use(authentication);
 
 router.use('/users/:userId', authorizationUser);
 router.put('/users/:userId', UserController.updateUser);
-// router.delete('/users/:userId', UserController.deleteUser);
+router.delete('/users/:userId', authorizationUser, UserController.deleteUser);
 
 module.exports = router;

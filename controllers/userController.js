@@ -124,6 +124,31 @@ class UserController {
       return res.status(500).json({ message: error.message });
     }
   }
+
+  static async deleteUser(req, res) {
+    const id = +req.params.userId;
+
+    try {
+      await User.destroy({
+        where: { id },
+      });
+
+      return res
+        .status(200)
+        .json({ message: 'Your account has been successfully deleted' });
+    } catch (error) {
+      if (
+        error.name === 'SequelizeValidationError' ||
+        error.name === 'SequelizeUniqueConstraintError'
+      ) {
+        return res.status(400).json({
+          message: error.errors.map((e) => e.message),
+        });
+      }
+
+      return res.status(500).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = UserController;
