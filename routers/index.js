@@ -23,4 +23,10 @@ router.post(
   CategoryController.createCategory
 );
 
+router.get(
+  '/categories',
+  authorizationAdmin,
+  CategoryController.getAllCategories
+);
+
 module.exports = router;
