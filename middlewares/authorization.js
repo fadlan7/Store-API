@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Category } = require('../models');
 
 async function authorizationUser(req, res, next) {
   const userId = req.params.userId;
@@ -29,4 +29,20 @@ async function authorizationUser(req, res, next) {
   }
 }
 
-module.exports = { authorizationUser };
+async function authorizationAdmin(req, res, next) {
+  const authenticatedUser = res.locals.user;
+
+  try {
+    if (authenticatedUser.role === 1) {
+      return next();
+    } else {
+      return res.status(403).json({
+        message: `User with email ${authenticatedUser.email} does not have permission to access category `,
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
+module.exports = { authorizationUser, authorizationAdmin };
