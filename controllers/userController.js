@@ -103,8 +103,8 @@ class UserController {
         id,
         full_name,
         email,
-        createdAt: userData.createdAt,
-        updatedAt: userData.updatedAt,
+        createdAt: userData[1][0].createdAt,
+        updatedAt: userData[1][0].updatedAt,
       };
 
       return res.status(200).json({ user: dataDisplay });
