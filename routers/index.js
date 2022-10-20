@@ -22,17 +22,20 @@ router.post(
   authorizationAdmin,
   CategoryController.createCategory
 );
-
 router.get(
   '/categories',
   authorizationAdmin,
   CategoryController.getAllCategories
 );
-
 router.patch(
   '/categories/:categoryId',
   authorizationAdmin,
   CategoryController.editCategory
+);
+router.delete(
+  '/categories/:categoryId',
+  authorizationAdmin,
+  CategoryController.deleteCategory
 );
 
 module.exports = router;

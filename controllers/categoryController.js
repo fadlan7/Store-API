@@ -94,6 +94,42 @@ class CategoryController {
       return res.status(500).json({ message: error.message });
     }
   }
+
+  static async deleteCategory(req, res) {
+    const id = +req.params.categoryId;
+
+    try {
+      const findCategory = await Category.findOne({
+        where: {
+          id: id,
+        },
+      });
+
+      if (!findCategory) {
+        return res
+          .status(404)
+          .json({ message: `Category with id ${id} not found` });
+      } else {
+        await Category.destroy({
+          where: { id },
+        });
+        return res
+          .status(200)
+          .json({ message: 'Category has been successfully deleted' });
+      }
+    } catch (error) {
+      if (
+        error.name === 'SequelizeValidationError' ||
+        error.name === 'SequelizeUniqueConstraintError'
+      ) {
+        return res.status(400).json({
+          message: error.errors.map((e) => e.message),
+        });
+      }
+
+      return res.status(500).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = CategoryController;
