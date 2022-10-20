@@ -8,8 +8,8 @@ router.post('/users/login', UserController.login);
 
 router.use(authentication);
 
-router.use('/users/:userId', authorizationUser);
-router.put('/users/:userId', UserController.updateUser);
+router.put('/users/:userId', authorizationUser, UserController.updateUser);
 router.delete('/users/:userId', authorizationUser, UserController.deleteUser);
+router.patch('/users/topup', UserController.updateBalance);
 
 module.exports = router;

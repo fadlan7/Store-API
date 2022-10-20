@@ -99,8 +99,6 @@ class UserController {
         raw: true,
       });
 
-      // console.log(userData.createdAt);
-
       const dataDisplay = {
         id,
         full_name,
@@ -109,7 +107,6 @@ class UserController {
         updatedAt: userData.updatedAt,
       };
 
-      // console.log(userData);
       return res.status(200).json({ user: dataDisplay });
     } catch (error) {
       if (
@@ -136,6 +133,35 @@ class UserController {
       return res
         .status(200)
         .json({ message: 'Your account has been successfully deleted' });
+    } catch (error) {
+      if (
+        error.name === 'SequelizeValidationError' ||
+        error.name === 'SequelizeUniqueConstraintError'
+      ) {
+        return res.status(400).json({
+          message: error.errors.map((e) => e.message),
+        });
+      }
+
+      return res.status(500).json({ message: error.message });
+    }
+  }
+
+  static async updateBalance(req, res) {
+    const id = +res.locals.user.id;
+    let balance = +req.body.balance;
+
+    try {
+      const balanceData = await User.findOne({ where: { id } });
+
+      balanceData.balance = balanceData.balance + balance;
+      await balanceData.save();
+
+      balance = currencyFormat(balanceData.balance);
+
+      return res.status(200).json({
+        message: `Your balance has been successfully updated to ${balance}`,
+      });
     } catch (error) {
       if (
         error.name === 'SequelizeValidationError' ||
