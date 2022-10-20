@@ -29,4 +29,10 @@ router.get(
   CategoryController.getAllCategories
 );
 
+router.patch(
+  '/categories/:categoryId',
+  authorizationAdmin,
+  CategoryController.editCategory
+);
+
 module.exports = router;

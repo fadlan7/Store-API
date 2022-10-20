@@ -57,6 +57,43 @@ class CategoryController {
       return res.status(500).json({ message: error.message });
     }
   }
+
+  static async editCategory(req, res) {
+    const id = +req.params.categoryId;
+    const { type } = req.body;
+
+    console.log(typeof id, id);
+
+    try {
+      const categoryData = await Category.findOne({ where: { id } });
+      console.log(categoryData);
+      categoryData.type = type;
+
+      const dataDisplay = {
+        id,
+        type,
+        sold_product_amount: categoryData.sold_product_amount,
+        updatedAt: categoryData.updatedAt,
+        createdAt: categoryData.createdAt,
+      };
+      categoryData.save();
+
+      return res.status(200).json({
+        category: dataDisplay,
+      });
+    } catch (error) {
+      if (
+        error.name === 'SequelizeValidationError' ||
+        error.name === 'SequelizeUniqueConstraintError'
+      ) {
+        return res.status(400).json({
+          message: error.errors.map((e) => e.message),
+        });
+      }
+
+      return res.status(500).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = CategoryController;
