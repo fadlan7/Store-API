@@ -50,5 +50,10 @@ router.put(
   authorizationAdmin,
   ProductController.editProduct
 );
+router.patch(
+  '/products/:productId',
+  authorizationAdmin,
+  ProductController.editCategoryId
+);
 
 module.exports = router;

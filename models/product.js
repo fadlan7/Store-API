@@ -35,15 +35,17 @@ module.exports = (sequelize, DataTypes) => {
       stock: {
         type: DataTypes.INTEGER,
         validate: {
-          notEmpty: { args: true, msg: 'Price is required' },
-          isInt: { args: true, msg: 'Is not a integer on price' },
+          notEmpty: { args: true, msg: 'Stock is required' },
+          isInt: { args: true, msg: 'Is not a integer on stock' },
           min: {
             args: [5],
             msg: 'Minimum 5 stocks required in stock',
           },
         },
       },
-      CategoryId: DataTypes.INTEGER,
+      CategoryId: {
+        type: DataTypes.INTEGER,
+      },
     },
     {
       sequelize,
