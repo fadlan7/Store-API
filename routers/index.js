@@ -1,5 +1,9 @@
 const router = require('express').Router();
-const { UserController, CategoryController } = require('../controllers');
+const {
+  UserController,
+  CategoryController,
+  ProductController,
+} = require('../controllers');
 const authentication = require('../middlewares/authentication');
 const {
   authorizationUser,
@@ -37,5 +41,8 @@ router.delete(
   authorizationAdmin,
   CategoryController.deleteCategory
 );
+
+//Product -------------------------------------------------------
+router.post('/products', authorizationAdmin, ProductController.createProduct);
 
 module.exports = router;
