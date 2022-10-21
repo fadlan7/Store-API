@@ -29,5 +29,6 @@ router.delete('/products/:productId', authorizationAdmin, ProductController.dele
 //TransactionHistories -------------------------------------------------------
 router.post('/transactions', TransactionController.createTransaction)
 router.get('/transactions/user', TransactionController.getAllTransactionUser)
+router.get('/transactions/admin', authorizationAdmin, TransactionController.getAllTransactionAdmin)
 
 module.exports = router;

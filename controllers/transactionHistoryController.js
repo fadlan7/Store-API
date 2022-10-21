@@ -75,14 +75,61 @@ class TransactionController {
 
   static async getAllTransactionUser(req, res) {
     const UserId = +res.locals.user.id;
-    console.log(UserId);
+
     try {
       const transactionDatas = await TransactionHistory.findAll({
         where: { UserId },
+        attributes: [
+          'ProductId',
+          'UserId',
+          'quantity',
+          'total_price',
+          'createdAt',
+          'updatedAt',
+        ],
         include: [
           {
             model: Product,
             attributes: ['id', 'title', 'price', 'stock', 'CategoryId'],
+          },
+        ],
+        order: [['id', 'ASC']],
+      });
+
+      return res.status(200).json({ transactionHistories: transactionDatas });
+    } catch (error) {
+      if (
+        error.name === 'SequelizeValidationError' ||
+        error.name === 'SequelizeUniqueConstraintError'
+      ) {
+        return res.status(400).json({
+          message: error.errors.map((e) => e.message),
+        });
+      }
+
+      return res.status(500).json({ message: error.message });
+    }
+  }
+
+  static async getAllTransactionAdmin(req, res) {
+    try {
+      const transactionDatas = await TransactionHistory.findAll({
+        attributes: [
+          'ProductId',
+          'UserId',
+          'quantity',
+          'total_price',
+          'createdAt',
+          'updatedAt',
+        ],
+        include: [
+          {
+            model: Product,
+            attributes: ['id', 'title', 'price', 'stock', 'CategoryId'],
+          },
+          {
+            model: User,
+            attributes: ['id', 'email', 'balance', 'gender', 'role'],
           },
         ],
         order: [['id', 'ASC']],
