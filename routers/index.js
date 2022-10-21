@@ -45,5 +45,10 @@ router.delete(
 //Product -------------------------------------------------------
 router.post('/products', authorizationAdmin, ProductController.createProduct);
 router.get('/products', authorizationAdmin, ProductController.getAllProduct);
+router.put(
+  '/products/:productId',
+  authorizationAdmin,
+  ProductController.editProduct
+);
 
 module.exports = router;
