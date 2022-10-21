@@ -55,5 +55,10 @@ router.patch(
   authorizationAdmin,
   ProductController.editCategoryId
 );
+router.delete(
+  '/products/:productId',
+  authorizationAdmin,
+  ProductController.deleteProduct
+);
 
 module.exports = router;

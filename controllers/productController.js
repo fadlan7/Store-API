@@ -161,90 +161,28 @@ class ProductController {
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
+  }
 
-    // await Product.findOne({ where: { id } })
-    //   .then((product) => {
-    //     if (!product) {
-    //       return res
-    //         .status(404)
-    //         .json({ message: `Product with id ${id} not found` });
-    //     }
+  static async deleteProduct(req, res) {
+    const id = +req.params.productId;
 
-    //     const findCategoryId = Category.findOne({ where: { CategoryId } });
-    //     console.log(findCategoryId);
+    try {
+      const findProduct = await Product.findOne({ where: { id } });
 
-    //     if (!findCategoryId) {
-    //       return res
-    //         .status(404)
-    //         .json({ msg: `Category with id ${id} not found` });
-    //     }
-    // else {
-    //   product.CategoryId = CategoryId;
-    //   product.save();
+      if (findProduct === null) {
+        return res
+          .status(404)
+          .json({ message: `Product with id ${id} not found` });
+      } else {
+        await Product.destroy({ where: { id } });
 
-    //   const dataDisplay = {
-    //     id,
-    //     title: product.title,
-    //     price: currencyFormat(product.price),
-    //     stock: +product.stock,
-    //     CategoryId,
-    //     updatedAt: product.updatedAt,
-    //     createdAt: product.createdAt,
-    //   };
-
-    //   return res.status(200).json({
-    //     category: dataDisplay,
-    //   });
-    // }
-    // })
-    // .catch((error) => {
-    //   if (
-    //     error.name === 'SequelizeValidationError' ||
-    //     error.name === 'SequelizeUniqueConstraintError'
-    //   ) {
-    //     return res.status(400).json({
-    //       message: error.errors.map((e) => e.message),
-    //     });
-    //   }
-
-    //   return res.status(500).json({ message: error.message });
-    // });
-    // try {
-    //   const productData = await Product.findOne({ where: { id } });
-
-    //   if (!productData) {
-    //     return res
-    //       .status(404)
-    //       .json({ message: `Product with id ${id} not found` });
-    //   } else {
-    //     productData.CategoryId = CategoryId;
-    //     productData.save();
-    //     const dataDisplay = {
-    //       id,
-    //       title: productData.title,
-    //       price: currencyFormat(productData.price),
-    //       stock: +productData.stock,
-    //       CategoryId,
-    //       updatedAt: productData.updatedAt,
-    //       createdAt: productData.createdAt,
-    //     };
-
-    //     return res.status(200).json({
-    //       category: dataDisplay,
-    //     });
-    //   }
-    // } catch (error) {
-    //   if (
-    //     error.name === 'SequelizeValidationError' ||
-    //     error.name === 'SequelizeUniqueConstraintError'
-    //   ) {
-    //     return res.status(400).json({
-    //       message: error.errors.map((e) => e.message),
-    //     });
-    //   }
-
-    //   return res.status(500).json({ message: error.message });
-    // }
+        return res
+          .status(200)
+          .json({ message: 'Product has been successfully deleted' });
+      }
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
   }
 }
 
