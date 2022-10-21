@@ -3,12 +3,16 @@ const currencyFormat = require('../helpers/currencyFormat');
 
 class TransactionController {
   static async createTransaction(req, res) {
-    const { ProductId, quantity } = req.body;
+    const ProductId = +req.body.ProductId;
+    const quantity = +req.body.quantity;
     const UserId = +res.locals.user.id;
 
     try {
       const findProduct = await Product.findOne({ where: { id: ProductId } });
       const findUser = await User.findOne({ where: { id: UserId } });
+      const findCategory = await Category.findOne({
+        where: { id: findProduct.CategoryId },
+      });
 
       const total_price = findProduct.price * quantity;
       console.log(total_price);
@@ -23,23 +27,27 @@ class TransactionController {
         });
       } else if (findUser.balance < total_price) {
         return res.status(404).json({
-          message: `Balance anda tidak mencukupi untuk membayar total harga produk sebesar = ${currencyFormat(
+          message: `Balance anda tidak mencukupi untuk membayar total harga produk sebesar ${currencyFormat(
             total_price
+          )}. Anda hanya memiliki balance sebesar ${currencyFormat(
+            findUser.balance
           )} `,
         });
       }
 
-      const sisaproduct = (findProduct.stock = findProduct.stock - quantity);
-      //   findProduct.save();
+      findProduct.stock -= quantity;
+      findProduct.save();
+      findUser.balance -= total_price;
+      findUser.save();
+      findCategory.sold_product_amount += quantity;
+      findCategory.save();
 
-      const data = { stock: sisaproduct };
-      Product.update(data, {
-        where: {
-          id: findProduct.id,
-        },
+      await TransactionHistory.create({
+        ProductId,
+        UserId,
+        quantity,
+        total_price,
       });
-      //   findUser.balance = findUser.balance - total_price;
-      //   findUser.save();
 
       const transactionData = {
         total_price: currencyFormat(total_price),
@@ -51,6 +59,36 @@ class TransactionController {
         message: 'You have successfully purchase the product',
         transactionBill: transactionData,
       });
+    } catch (error) {
+      if (
+        error.name === 'SequelizeValidationError' ||
+        error.name === 'SequelizeUniqueConstraintError'
+      ) {
+        return res.status(400).json({
+          message: error.errors.map((e) => e.message),
+        });
+      }
+
+      return res.status(500).json({ message: error.message });
+    }
+  }
+
+  static async getAllTransactionUser(req, res) {
+    const UserId = +res.locals.user.id;
+    console.log(UserId);
+    try {
+      const transactionDatas = await TransactionHistory.findAll({
+        where: { UserId },
+        include: [
+          {
+            model: Product,
+            attributes: ['id', 'title', 'price', 'stock', 'CategoryId'],
+          },
+        ],
+        order: [['id', 'ASC']],
+      });
+
+      return res.status(200).json({ transactionHistories: transactionDatas });
     } catch (error) {
       if (
         error.name === 'SequelizeValidationError' ||
