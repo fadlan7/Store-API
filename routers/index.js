@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const {  UserController,  CategoryController,  ProductController, TransactionController} = require('../controllers');
 const authentication = require('../middlewares/authentication');
-const {authorizationUser,authorizationAdmin,} = require('../middlewares/authorization');
+const {authorizationUser,authorizationAdmin, authorizationUserTransaction} = require('../middlewares/authorization');
 
 //User ----------------------------------------------------------
 router.post('/users/register', UserController.register);
@@ -30,5 +30,6 @@ router.delete('/products/:productId', authorizationAdmin, ProductController.dele
 router.post('/transactions', TransactionController.createTransaction)
 router.get('/transactions/user', TransactionController.getAllTransactionUser)
 router.get('/transactions/admin', authorizationAdmin, TransactionController.getAllTransactionAdmin)
+router.get('/transactions/:transactionId', authorizationUserTransaction, TransactionController.getTransactionById)
 
 module.exports = router;

@@ -149,6 +149,45 @@ class TransactionController {
       return res.status(500).json({ message: error.message });
     }
   }
+
+  static async getTransactionById(req, res) {
+    const id = +req.params.transactionId;
+
+    console.log(id);
+
+    try {
+      const transactionDatas = await TransactionHistory.findAll({
+        where: { id },
+        attributes: [
+          'ProductId',
+          'UserId',
+          'quantity',
+          'total_price',
+          'createdAt',
+          'updatedAt',
+        ],
+        include: [
+          {
+            model: Product,
+            attributes: ['id', 'title', 'price', 'stock', 'CategoryId'],
+          },
+        ],
+      });
+
+      return res.status(200).json(transactionDatas);
+    } catch (error) {
+      if (
+        error.name === 'SequelizeValidationError' ||
+        error.name === 'SequelizeUniqueConstraintError'
+      ) {
+        return res.status(400).json({
+          message: error.errors.map((e) => e.message),
+        });
+      }
+
+      return res.status(500).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = TransactionController;
