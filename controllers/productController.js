@@ -48,8 +48,23 @@ class ProductController {
 
   static async getAllProduct(req, res) {
     try {
-      const productDatas = await Product.findAll();
-    } catch (error) {}
+      const productDatas = await Product.findAll({
+        order: [['id', 'ASC']],
+      });
+
+      return res.status(200).json({ products: productDatas });
+    } catch (error) {
+      if (
+        error.name === 'SequelizeValidationError' ||
+        error.name === 'SequelizeUniqueConstraintError'
+      ) {
+        return res.status(400).json({
+          message: error.errors.map((e) => e.message),
+        });
+      }
+
+      return res.status(500).json({ message: error.message });
+    }
   }
 }
 
