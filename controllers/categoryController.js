@@ -42,7 +42,6 @@ class CategoryController {
         ],
         order: [['id', 'ASC']],
       });
-      //   { include: [Comment, User] }
       return res.status(200).json({ categories: categoryDatas });
     } catch (error) {
       if (
