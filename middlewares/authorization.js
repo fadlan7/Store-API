@@ -33,7 +33,7 @@ async function authorizationAdmin(req, res, next) {
   const authenticatedUser = res.locals.user;
 
   try {
-    if (authenticatedUser.role === 1) {
+    if (authenticatedUser.role === 0) {
       return next();
     } else {
       return res.status(403).json({
