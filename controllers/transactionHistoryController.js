@@ -23,7 +23,7 @@ class TransactionController {
           .json({ message: `Product with id ${ProductId} not found` });
       } else if (quantity > findProduct.stock) {
         return res.status(404).json({
-          message: `Stock produk tidak tersedia, hanya tersedia sebanyak ${findProduct.stock} produk`,
+          message: `Stock produk tidak tersedia`,
         });
       } else if (findUser.balance < total_price) {
         return res.status(404).json({
