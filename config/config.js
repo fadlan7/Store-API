@@ -21,6 +21,6 @@ module.exports = {
     database: process.env.PGDATABASE,
     host: process.env.PGHOST,
     port: process.env.PGPORT,
-    dialect: 'mysql',
+    dialect: 'postgres',
   },
 };
