@@ -21,7 +21,7 @@ router.delete('/categories/:categoryId', authorizationAdmin, CategoryController.
 
 //Product -------------------------------------------------------
 router.post('/products', authorizationAdmin, ProductController.createProduct);
-router.get('/products', authorizationAdmin, ProductController.getAllProduct);
+router.get('/products', ProductController.getAllProduct);
 router.put('/products/:productId', authorizationAdmin, ProductController.editProduct);
 router.patch('/products/:productId', authorizationAdmin, ProductController.editCategoryId);
 router.delete('/products/:productId', authorizationAdmin, ProductController.deleteProduct);
