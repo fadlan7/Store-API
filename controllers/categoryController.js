@@ -75,11 +75,18 @@ class CategoryController {
         updatedAt: categoryData.updatedAt,
         createdAt: categoryData.createdAt,
       };
-      categoryData.save();
 
-      return res.status(200).json({
-        category: dataDisplay,
-      });
+      if (!categoryData) {
+        return res
+          .status(404)
+          .json({ message: `Category with id ${id} not found` });
+      } else {
+        categoryData.save();
+
+        return res.status(200).json({
+          category: dataDisplay,
+        });
+      }
     } catch (error) {
       if (
         error.name === 'SequelizeValidationError' ||
