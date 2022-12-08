@@ -37,7 +37,7 @@ async function authorizationAdmin(req, res, next) {
       return next();
     } else {
       return res.status(403).json({
-        message: `User with email ${authenticatedUser.email} does not have permission to access category `,
+        message: `User with email ${authenticatedUser.email} does not have permission to access this pages`,
       });
     }
   } catch (error) {
