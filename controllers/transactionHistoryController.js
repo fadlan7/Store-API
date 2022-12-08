@@ -23,15 +23,13 @@ class TransactionController {
           .json({ message: `Product with id ${ProductId} not found` });
       } else if (quantity > findProduct.stock) {
         return res.status(404).json({
-          message: `Stock produk tidak tersedia`,
+          message: `Product stock not available`,
         });
       } else if (findUser.balance < total_price) {
         return res.status(404).json({
-          message: `Balance anda tidak mencukupi untuk membayar total harga produk sebesar ${currencyFormat(
+          message: `Your balance is insufficient to pay the total product price of ${currencyFormat(
             total_price
-          )}. Anda hanya memiliki balance sebesar ${currencyFormat(
-            findUser.balance
-          )} `,
+          )}. You only have a balance ${currencyFormat(findUser.balance)} `,
         });
       }
 
