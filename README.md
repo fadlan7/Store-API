@@ -639,3 +639,199 @@ Code: 200
 
 	Code: 500
 	Content: { "message" : "Internal Server Error" }
+
+
+## TransactionHistories
+
+### Create one transaction
+
+
+**_Need login before create a transaction for get the token_**
+
+-  **URL:**
+
+	<The  request  type>
+
+		/transactions
+
+-  **Method:**
+
+	<The  request  type>
+
+		POST
+
+-  **Request:**
+	*headers: token(string)
+	*body: 
+
+	<The  request  type>
+
+		{
+			"productId": "integer",
+			"quantity": "integer"
+		}
+
+-  **Success response:**
+
+	Code: 201
+
+	![response delete user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/delete-user.png)
+
+
+-  **Error response:**
+
+	<The  request  type>
+		
+		code: 400
+		Content: { "message": "Sequelize validation error or sequelize unique constraint error" }
+		
+		code: 401
+		Content: { "message": "jwt must be provided" }
+
+		Code: 404
+		Content: { "message": "Product with id ... not found" }
+
+		Code: 404
+		Content: { "message": "Product stock not available" }
+
+		Code: 404
+		Content: { "message": "Balance anda tidak mencukupi untuk membayar total harga produk sebesar Rp.... Anda hanya memiliki balance sebesar Rp..." }
+
+		Code: 500
+		Content: { "message" : "Internal Server Error" }
+
+  
+
+### Get transaction user
+
+  
+
+**_Need login before  get transaction user for get the token_**
+
+  
+
+-  **URL:**
+
+	<The  request  type>
+
+		/transactions/user
+
+-  **Method:**
+
+	<The  request  type>
+
+		GET
+
+- **Request:**
+*headers: token(string)
+
+-  **Success response:**
+
+	Code: 200
+
+	![response delete user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/delete-user.png)
+
+-  **Error response:**
+
+	<The  request  type>
+
+		code: 401
+		Content: { "message": "jwt must be provided" }
+
+		Code: 404
+		Content: { "message": "User with email... not found" }
+
+		Code: 500
+		Content: { "message" : "Internal Server Error" }
+
+
+### Get transaction admin
+
+  
+
+**_Need login before  get transaction admin for get the token_**
+
+  
+
+-  **URL:**
+
+	<The  request  type>
+
+		/transactions/admin
+
+-  **Method:**
+
+	<The  request  type>
+
+		GET
+
+- **Request:**
+*headers: token(string)
+
+-  **Success response:**
+
+	Code: 200
+
+	![response delete user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/delete-user.png)
+-  **Error response:**
+
+	<The  request  type>
+
+		code: 401
+		Content: { "message": "jwt must be provided" }
+
+	Code: 403
+		Content: { "message": "User with email ... does not have permission to access this pages" }
+		
+		Code: 404
+		Content: { "message": "User with email... not found" }
+
+		Code: 500
+		Content: { "message" : "Internal Server Error" }
+
+
+### Get transaction user by Id
+
+  
+
+**_Need login before  get transaction user for get the token_**
+
+  
+
+-  **URL:**
+
+	<The  request  type>
+
+		/transactions/:transactionId
+
+-  **Method:**
+
+	<The  request  type>
+
+		GET
+
+- **Request:**
+*headers: token(string)
+*params: transactionId(integer)
+
+-  **Success response:**
+
+	Code: 200
+
+	![response delete user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/delete-user.png)
+
+-  **Error response:**
+
+	<The  request  type>
+
+		code: 401
+		Content: { "message": "jwt must be provided" }
+
+		Code: 403
+		Content: { "message": "User with email ... does not have permission to access transaction with id ..." }
+		
+		Code: 404
+		Content: { "message": "Transaction with id... not found" }
+
+		Code: 500
+		Content: { "message" : "Internal Server Error" }
