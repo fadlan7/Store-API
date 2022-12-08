@@ -21,7 +21,7 @@
 
 	npx sequelize db:create
 
-**before creating the database make sure to check the database configuration here: [Database configuration](https://github.com/fadlan7/final-project3/blob/main/config/config.js)*
+**before creating the database make sure to check the database configuration here: [Database configuration](https://github.com/fadlan7/Store-API/blob/main/config/config.js)*
 
 -  **Migrate all table to database:**
 
@@ -73,11 +73,24 @@
 
 	POST
 
+-  **Request:**
+
+	*body: 
+
+<The  request  type>
+
+	{
+		"full_name": "string",
+		"password": "string",
+		"gender": "string",
+		"email": "string",
+	}
+
 -  **Success response:**
 
 Code: 201
 
-![response register success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/regist.png)
+![response register success]()
 
 -  **Error response:**
 
@@ -107,11 +120,21 @@ Code: 201
 
 	POST
 
+-  **Request:**
+	*body:
+
+<The  request  type>
+
+	{
+		"password": "string",
+		"email": "string",
+	}
+
 -  **Success response:**
 
 Code: 200
 
-![response login success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/login.png)
+![response login success]()
 
 -  **Error response:**
 
@@ -151,11 +174,23 @@ Code: 200
 
 	PUT
 
+-  **Request:**
+	*header: token (string)
+	*params: userId (integer)
+	*body:
+
+<The  request  type>
+
+	{
+		"full_name": "string",
+		"email": "string",
+	}
+
 -  **Success response:**
 
 Code: 200
 
-![response edit user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/edit-user.png)
+![response edit user success]()
 
 -  **Error response:**
 
@@ -198,11 +233,15 @@ Code: 200
 
 	DELETE
 
+-  **Request:**
+	*header: token (string)
+	*params: userId (integer)
+
 -  **Success response:**
 
 Code: 200
 
-![response delete user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/delete-user.png)
+![response delete user success]()
 
 -  **Error response:**
 
@@ -238,11 +277,21 @@ Code: 200
 
 	PATCH
 
+-  **Request:**
+	*header: token (string)
+	*body:
+
+<The  request  type>
+
+	{
+		"balance": "integer",
+	}
+
 -  **Success response:**
 
 Code: 200
 
-![response edit user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/edit-user.png)
+![response edit user success]()
 
 -  **Error response:**
 
@@ -277,11 +326,22 @@ Code: 200
 
 	POST
 
+-  **Request:**
+	*header: token (string)
+	*body:
+
+<The  request  type>
+
+	{
+		"type": "string",
+	}
+
+
 -  **Success response:**
 
 Code: 201
 
-![response edit user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/edit-user.png)
+![response edit user success]()
 
 -  **Error response:**
 
@@ -324,11 +384,14 @@ Code: 201
 
 	GET
 
+-  **Request:**
+	*header: token (string)
+
 -  **Success response:**
 
 Code: 200
 
-![response delete user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/delete-user.png)
+![response delete user success]()
 
 -  **Error response:**
 
@@ -364,11 +427,23 @@ Code: 200
 
 	PATCH
 
+-  **Request:**
+	*headers: token (string)
+	*params: categoryId (integer)
+	*body:
+
+<The  request  type>
+
+	{
+		"type": "string",
+	}
+
+
 -  **Success response:**
 
 Code: 200
 
-![response edit user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/edit-user.png)
+![response edit user success]()
 
 -  **Error response:**
 
@@ -407,11 +482,15 @@ Code: 200
 
 	DELETE
 
+-  **Request:**
+	*headers: token (string)
+	*params: categoryId (integer)
+
 -  **Success response:**
 
 Code: 200
 
-![response edit user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/edit-user.png)
+![response edit user success]()
 
 -  **Error response:**
 
@@ -449,11 +528,24 @@ Code: 200
 
 	POST
 
+-  **Request:**
+	*headers: token (string)
+	*body:
+
+<The  request  type>
+
+	{
+		"title": "string",
+		"price": "integer",
+		"stock": "integer",
+		"CategoryId": "integer",
+	}
+
 -  **Success response:**
 
 Code: 201
 
-![response edit user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/edit-user.png)
+![response edit user success]()
 
 -  **Error response:**
 
@@ -493,11 +585,14 @@ Code: 201
 
 	GET
 
+-  **Request:**
+	*headers: token (string)
+
 -  **Success response:**
 
 Code: 200
 
-![response delete user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/delete-user.png)
+![response delete user success]()
 
 -  **Error response:**
 
@@ -530,11 +625,24 @@ Code: 200
 
 	PUT
 
+-  **Request:**
+	*headers: token (string)
+	*params: productId (integer)
+	*body:
+
+<The  request  type>
+
+	{
+		"price": "integer",
+		"stock": "integer",
+		"title": "string",
+	}
+
 -  **Success response:**
 
 Code: 200
 
-![response edit user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/edit-user.png)
+![response edit user success]()
 
 -  **Error response:**
 
@@ -573,11 +681,15 @@ Code: 200
 
 	DELETE
 
+ **Request:**
+	*headers: token (string)
+	*params: productId (integer)
+
 -  **Success response:**
 
 Code: 200
 
-![response edit user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/edit-user.png)
+![response edit user success]()
 
 -  **Error response:**
 
@@ -611,12 +723,23 @@ Code: 200
 <The  request  type>
 
 	PATCH
+
+-  **Request:**
+	*headers: token (string)
+	*params: productId (integer)
+	*body:
+
+<The  request  type>
+
+	{
+		"CategoryId": "integer",
+	}
 	
 -  **Success response:**
 
 Code: 200
 
-![response edit user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/edit-user.png)
+![response edit user success]()
 
 -  **Error response:**
 
@@ -675,7 +798,7 @@ Code: 200
 
 	Code: 201
 
-	![response delete user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/delete-user.png)
+	![response delete user success]()
 
 
 -  **Error response:**
@@ -729,7 +852,7 @@ Code: 200
 
 	Code: 200
 
-	![response delete user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/delete-user.png)
+	![response delete user success]()
 
 -  **Error response:**
 
@@ -772,7 +895,7 @@ Code: 200
 
 	Code: 200
 
-	![response delete user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/delete-user.png)
+	![response delete user success]()
 -  **Error response:**
 
 	<The  request  type>
@@ -818,7 +941,7 @@ Code: 200
 
 	Code: 200
 
-	![response delete user success](https://github.com/fadlan7/final-project2/blob/main/postmanResult/delete-user.png)
+	![response delete user success]()
 
 -  **Error response:**
 
